@@ -1,0 +1,50 @@
+{
+    "name": "ivanomatteo/laravel-db-mutex",
+    "description": "Your Package Description here",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [],
+    "authors": [
+        {
+            "name": "Ivano Matteo",
+            "email": "ivanomatteo@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable":true,
+    "require": {},
+    "require-dev": {
+        "symfony/thanks": "^1.0",
+        "phpunit/phpunit": "^7.4@dev",
+        "mockery/mockery": "^1.0@dev",
+        "orchestra/testbench": "^3.8@dev",
+        "orchestra/database": "^3.8@dev",
+        "illuminate/support": "^5.8@dev",
+        "fzaninotto/faker": "^1.9@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "IvanoMatteo\\LaravelDbMutex\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IvanoMatteo\\LaravelDbMutex\\Tests\\":"tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "IvanoMatteo\\LaravelDbMutex\\LaravelDbMutexServiceProvider"
+            ]
+        }
+    }
+}
