@@ -18,6 +18,8 @@ class CreateDBMutexesTable extends Migration
 
             $table->morphs('model');
 
+            $table->bigInteger('counter')->unsigned()->default(0);
+
             $table->timestamps();
         });
     }
