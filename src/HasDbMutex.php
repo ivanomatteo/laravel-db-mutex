@@ -17,7 +17,7 @@ trait HasDbMutex
     {
         $result = null;
         \DB::transaction(function () use (&$result, $callback, $optimistic_lock) {
-            $m = $this->dbmutex()->lockForUpdate()->firstOrNew([]);
+            $m = $this->dbmutex()->lockForUpdate()->firstOrCreate([]);
 
             if (isset($optimistic_lock)) {
                 $updated_at = $optimistic_lock['updated_at'] ?? null;
