@@ -13,11 +13,20 @@ trait HasDbMutex
         return $this->morphMany(DbMutex::class, 'model');
     }
 
+    function scopeWithDbMutex($q, $name = 'default')
+    {
+        $q->with(['dbmutex' => function ($q) use ($name) {
+            $q->where('name', '=', $name);
+        }]);
+
+        return $q;
+    }
+
     function usingDbMutex(callable $callback, ?array $optimistic_lock = null, $name = 'default')
     {
         $result = null;
         \DB::transaction(function () use (&$result, $callback, $optimistic_lock, $name) {
-            
+
             $m = $this->dbmutex()
                 ->lockForUpdate()
                 ->firstOrCreate(['name' => $name]);

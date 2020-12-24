@@ -62,6 +62,13 @@ $m->usingDbMutex(function(){
     ]
 );
 
+// there is also the  withDbMutex scope
+
+YourModel::withDbMutex()->find(1); //will add the "default" dbmutex data
+
+YourModel::withDbMutex('foo')->find(1); //will add the "foo" dbmutex data
+
+
 
 ```
 
