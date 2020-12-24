@@ -5,6 +5,11 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/ivanomatteo/laravel-db-mutex.svg?style=flat-square)](https://packagist.org/packages/ivanomatteo/laravel-db-mutex)
 
 
+This library implement a mutex mechanism, using a polimorphic one to many relation.
+when calling usingDbMutex() will be added a row in the db_mutexes (if do not alredy exists)
+matching the current model type and id, with in addition a "name" field (the default name id "default"),
+on that row will be applied a "lock for update" (the db engine in use must support it)
+
 ## Install
 
 ```bash
