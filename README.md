@@ -29,7 +29,8 @@ Write a few lines about the usage of this package.
 
 ```php
 // add HasDbMutex trait to your model
-use HasDbMutex;
+
+use HasDbMutex; // ( IvanoMatteo\LaravelDbMutex\HasDbMutex )
 
 
 $m = YourModel::find(1);
