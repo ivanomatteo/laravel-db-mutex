@@ -9,6 +9,9 @@
 
 ```bash
 composer require ivanomatteo/laravel-db-mutex
+
+php artisan migrate
+
 ```
 
 
@@ -16,6 +19,43 @@ composer require ivanomatteo/laravel-db-mutex
 
 Write a few lines about the usage of this package.
 
+```php
+// add HasDbMutex trait to your model
+use HasDbMutex;
+
+
+$m = YourModel::find(1);
+
+$m->usingDbMutex(function(){ 
+    // this code will run in mutual exclusion 
+    // for all request calling it 
+    // on the record with id 1
+    sleep(5); 
+    echo "done!";  
+});
+
+
+$m->usingDbMutex(function(){ 
+    // this code will run in mutual exclusion 
+    // for all request calling it 
+    // on the record with id 1, with "foo" identifier
+    sleep(5); 
+    echo "done!";  
+},null,"foo");
+
+$m->usingDbMutex(function(){ 
+    // in this case we will use also an optimistic lock mechanism
+    // we can provide the previous value of counter (more reliable) or updated_at or both
+    // and if these values do not match the currents, an 412 http error will be returned
+},
+    [
+        'counter'=>10, 
+        'updated_at' => '2020-01-01 00:00:00'
+    ]
+);
+
+
+```
 
 ## Testing
 

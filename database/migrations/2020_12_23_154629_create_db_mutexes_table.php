@@ -17,9 +17,11 @@ class CreateDBMutexesTable extends Migration
             $table->id();
 
             $table->morphs('model');
+            $table->string('name',40)->index();
 
             $table->bigInteger('counter')->unsigned()->default(0);
 
+            $table->unique(['model_id','model_type','name']);
             $table->timestamps();
         });
     }

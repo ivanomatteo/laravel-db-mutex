@@ -8,5 +8,7 @@ class DBMutex extends Model
 {
     protected $table = "db_mutexes";
 
+    protected $guarded = [];
+
     protected $visible = ['counter','updated_at'];
 }

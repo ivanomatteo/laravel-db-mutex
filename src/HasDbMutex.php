@@ -10,19 +10,22 @@ trait HasDbMutex
 
     function dbmutex()
     {
-        return $this->morphOne(DbMutex::class, 'model');
+        return $this->morphMany(DbMutex::class, 'model');
     }
 
-    function usingDbMutex(callable $callback, ?array $optimistic_lock = null)
+    function usingDbMutex(callable $callback, ?array $optimistic_lock = null, $name = 'default')
     {
         $result = null;
-        \DB::transaction(function () use (&$result, $callback, $optimistic_lock) {
-            $m = $this->dbmutex()->lockForUpdate()->firstOrCreate([]);
+        \DB::transaction(function () use (&$result, $callback, $optimistic_lock, $name) {
+            
+            $m = $this->dbmutex()
+                ->lockForUpdate()
+                ->firstOrCreate(['name' => $name]);
 
             if (isset($optimistic_lock)) {
                 $updated_at = $optimistic_lock['updated_at'] ?? null;
                 $counter = $optimistic_lock['counter'] ?? null;
-                if(!isset($updated_at) && !isset($counter)){
+                if (!isset($updated_at) && !isset($counter)) {
                     abort(400, 'parametro mancante: updated_at o count');
                 }
                 if ((isset($counter) && $counter !== $m->counter) ||
