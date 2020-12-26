@@ -22,24 +22,17 @@ trait HasDbMutex
         return $q;
     }
 
-    function usingDbMutex(callable $callback, ?array $optimistic_lock = null, $name = 'default')
+    function usingDbMutex(callable $callback, $optLockCounter = null, $name = 'default')
     {
         $result = null;
-        \DB::transaction(function () use (&$result, $callback, $optimistic_lock, $name) {
+        \DB::transaction(function () use (&$result, $callback, $optLockCounter, $name) {
 
             $m = $this->dbmutex()
                 ->lockForUpdate()
                 ->firstOrCreate(['name' => $name]);
 
-            if (isset($optimistic_lock)) {
-                $updated_at = $optimistic_lock['updated_at'] ?? null;
-                $counter = $optimistic_lock['counter'] ?? null;
-                if (!isset($updated_at) && !isset($counter)) {
-                    abort(400, 'parametro mancante: updated_at o count');
-                }
-                if ((isset($counter) && $counter !== $m->counter) ||
-                    (isset($updated_at) && $updated_at !== $m->updated_at)
-                ) {
+            if (isset($optLockCounter)) {
+                if ($optLockCounter != $m->counter) {
                     abort(412, 'record aggiornato da un\'altra finestra/sessione');
                 }
             }

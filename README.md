@@ -54,13 +54,10 @@ $m->usingDbMutex(function(){
 
 $m->usingDbMutex(function(){ 
     // in this case we will use also an optimistic lock mechanism
-    // we can provide the previous value of counter (more reliable) or updated_at or both
-    // and if these values do not match the currents, an 412 http error will be returned
+    // we can provide the previous value of counter
+    // and if the values do not match the current, a 412 http error will be returned
 },
-    [
-        'counter'=>10, 
-        'updated_at' => '2020-01-01 00:00:00'
-    ]
+    10 // $optLockCounter
 );
 
 // there is also the  withDbMutex scope
