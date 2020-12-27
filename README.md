@@ -7,7 +7,7 @@
 
 This library implement a mutex mechanism, using a polimorphic one to many relationship.
 
-When calling usingDbMutex(), if not alredy exists, a row matching the current model typem id and the specified "name" field (the default name is "default"),
+When calling usingDbMutex(), if not alredy exists, a row matching the current model type, id and the specified "name" field (the default name is "default"),
 will be added in the db_mutexes table.
 
 On that row will be applied a "lock for update" (the db engine in use must support it), eusuring the mutual exclusion.
@@ -55,23 +55,29 @@ $m->usingDbMutex(function(){
     echo "done!";  
 },null,"foo");
 
+
 $m->usingDbMutex(function(){ 
     // in this case we will use also an optimistic lock mechanism
-    // we can provide the previous value of counter
+    // we can provide the previous value of counter ($optLockCounter argument)
     // and if the values do not match the current, a 412 http error will be returned
 },
     10 // $optLockCounter
-);
+);  
+// in this case, obviously you need to read the previous value of counter
+// when reading the data. You could you use withDbMutex scope as explained below.
+
 
 // there is also the  withDbMutex scope
-
 YourModel::withDbMutex()->find(1); //will add the "default" dbmutex data
-
 YourModel::withDbMutex('foo')->find(1); //will add the "foo" dbmutex data
 
-
-
 ```
+### Warning
+When reading the model with the "dbmutex" relation information,
+it's possible that you have to wait for the lock became avaible on that rows.
+
+It's recommended to load it, only if it's necessary, for example if you need to use the optimistic lock mechanism, and the minimum number of dbmutex related row.
+
 
 ## Testing
 
