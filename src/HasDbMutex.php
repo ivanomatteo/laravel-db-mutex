@@ -6,8 +6,6 @@ use IvanoMatteo\LaravelDbMutex\Models\DbMutex;
 
 trait HasDbMutex
 {
-
-
     function dbmutex()
     {
         return $this->morphMany(DbMutex::class, 'model');
