@@ -63,7 +63,7 @@ $m->usingDbMutex(function(){
 },
     10 // $optLockCounter
 );  
-// in this case, obviously you need to read the previous value of counter
+// in this case, obviously you need to load the previous value of counter
 // when reading the data. You could you use withDbMutex scope as explained below.
 
 
@@ -76,7 +76,7 @@ YourModel::withDbMutex('foo')->find(1); //will add the "foo" dbmutex data
 When reading the model with the "dbmutex" relation information,
 it's possible that you have to wait for the lock became avaible on that rows.
 
-It's recommended to load it, only if it's necessary, for example if you need to use the optimistic lock mechanism.
+It's recommended to load it, only if that one is necessary, for example if you need to use the optimistic lock mechanism.
 
 For the same reason, it's recommended also to load the minimum number of dbmutex related row.
 
