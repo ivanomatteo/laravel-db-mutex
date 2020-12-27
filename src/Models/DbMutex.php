@@ -10,5 +10,5 @@ class DBMutex extends Model
 
     protected $guarded = [];
 
-    protected $visible = ['counter','updated_at'];
+    protected $visible = ['name','counter','updated_at'];
 }
