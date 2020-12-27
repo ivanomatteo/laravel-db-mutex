@@ -76,7 +76,9 @@ YourModel::withDbMutex('foo')->find(1); //will add the "foo" dbmutex data
 When reading the model with the "dbmutex" relation information,
 it's possible that you have to wait for the lock became avaible on that rows.
 
-It's recommended to load it, only if it's necessary, for example if you need to use the optimistic lock mechanism, and the minimum number of dbmutex related row.
+It's recommended to load it, only if it's necessary, for example if you need to use the optimistic lock mechanism.
+
+For the same reason, it's recommended also to load the minimum number of dbmutex related row.
 
 
 ## Testing
