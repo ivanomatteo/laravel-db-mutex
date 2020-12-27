@@ -14,40 +14,13 @@ class LaravelDbMutexServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/LaravelDbMutex.php', 'laravel-db-mutex');
+        //$this->mergeConfigFrom(__DIR__ . '/../config/LaravelDbMutex.php', 'laravel-db-mutex');
+        //$this->publishConfig();
 
-        $this->publishConfig();
-
-        // $this->loadViewsFrom(__DIR__.'/resources/views', 'laravel-db-mutex');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->registerRoutes();
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');        
     }
 
-    /**
-     * Register the package routes.
-     *
-     * @return void
-     */
-    private function registerRoutes()
-    {
-        Route::group($this->routeConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
-        });
-    }
 
-    /**
-    * Get route group configuration array.
-    *
-    * @return array
-    */
-    private function routeConfiguration()
-    {
-        return [
-            'namespace'  => "IvanoMatteo\LaravelDbMutex\Http\Controllers",
-            'middleware' => 'api',
-            'prefix'     => 'api'
-        ];
-    }
 
     /**
      * Register any application services.
@@ -56,13 +29,7 @@ class LaravelDbMutexServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Register facade
-        //$this->app->singleton('laravel-db-mutex', function () {
-        //    return new LaravelDbMutex;
-        //});
-        //"aliases": {
-        //    "IvanoMatteo": "IvanoMatteo\\LaravelDbMutex\\LaravelDbMutexFacade"
-        //}
+        
     }
 
     /**
