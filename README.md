@@ -6,9 +6,11 @@
 
 
 This library implement a mutex mechanism, using a polimorphic one to many relationship.
-when calling usingDbMutex() will be added a row in the db_mutexes table (if do not alredy exists)
-matching the current model type and id, with in addition a "name" field (the default name id "default"),
-on that row will be applied a "lock for update" (the db engine in use must support it).
+
+When calling usingDbMutex(), if not alredy exists, a row matching the current model typem id and the specified "name" field (the default name is "default"),
+will be added in the db_mutexes table.
+
+On that row will be applied a "lock for update" (the db engine in use must support it), eusuring the mutual exclusion.
 
 In this way you can avoid to put the lock on the table containing your data (possible bottle neck),
 preserving the read capability for all request that do not need a mutual exclusion.
