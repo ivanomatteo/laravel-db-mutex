@@ -5,7 +5,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/ivanomatteo/laravel-db-mutex.svg?style=flat-square)](https://packagist.org/packages/ivanomatteo/laravel-db-mutex)
 
 
-This library implement a mutex mechanism, using a polimorphic one to many relationship.
+This library implements a mutex mechanism, using a polymorphic "one to many" relationship.
 
 When calling usingDbMutex(), if not alredy exists, a row matching the current model type, id and the specified "name" field (the default name is "default"),
 will be added in the db_mutexes table.
