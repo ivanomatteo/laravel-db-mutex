@@ -66,7 +66,9 @@ $m->usingDbMutex(function(){
                 
             and/or
 
-            - updated_at timestamp of the model
+            - model_updated_at (updated_at timestamp of the model)
+                can be used if you are making modification on the related model
+                (model_updated_at would not make sense if your modifications are applied only to someting else)
                 less reliable but faster, the updated_at field of the model
                 can be readed outside of the "read lock" 
         
