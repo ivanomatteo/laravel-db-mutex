@@ -71,8 +71,10 @@ $m->usingDbMutex(function(){
                 (model_updated_at would not make sense if your modifications are applied only to someting else)
                 less reliable but faster, the updated_at field of the model
                 can be readed outside of the "read lock" 
-        
+                
         if the values do not match the currents, a 412 http error will be returned
+        
+        NOTE: these values must came from the current REQUEST, not from the retrieved models
     */
 },
     [
