@@ -98,7 +98,7 @@ it's possible that you have to wait for the lock became avaible on that rows.
 It's recommended to load it, only if that one is necessary, 
 for example if you need to use the optimistic lock mechanism with the counter value.
 
-For the same reason, it's recommended also to load the minimum number of dbmutex related row.
+For the same reason, it's also recommended to load the minimum number of dbmutex related row.
 
 
 ## Testing
