@@ -20,17 +20,23 @@ trait HasDbMutex
         return $q;
     }
 
-    function usingDbMutex(callable $callback, $optLockCounter = null, $name = 'default')
+    function usingDbMutex(callable $callback, ?array $optLock = null, $name = 'default')
     {
         $result = null;
-        \DB::transaction(function () use (&$result, $callback, $optLockCounter, $name) {
+        \DB::transaction(function () use (&$result, $callback, $optLock, $name) {
 
             $m = $this->dbmutex()
                 ->lockForUpdate()
                 ->firstOrCreate(['name' => $name]);
 
-            if (isset($optLockCounter)) {
-                if ($optLockCounter != $m->counter) {
+
+            if (isset($optLock['counter'])) {
+                if ($optLock['counter'] != $m->counter) {
+                    abort(412, 'record aggiornato da un\'altra finestra/sessione');
+                }
+            }
+            if (isset($optLock['model_updated_at'])) {
+                if ($optLock['model_updated_at'] != $this->getOriginal(static::UPDATED_AT)) {
                     abort(412, 'record aggiornato da un\'altra finestra/sessione');
                 }
             }
@@ -41,6 +47,7 @@ trait HasDbMutex
             $callback();
             $result = $m;
         });
+
         return $result;
     }
 }
