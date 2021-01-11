@@ -8,8 +8,8 @@ trait OptLockTs
 {
     public function initializeOptLockTs()
     {
-        $this->makeVisible(['updated_at']);
-        $this->fillable[] = 'updated_at';
+        $this->makeVisible([static::UPDATED_AT]);
+        $this->fillable[] = static::UPDATED_AT;
     }
 
     public static function bootOptLockTs()
