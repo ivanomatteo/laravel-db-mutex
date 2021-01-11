@@ -13,7 +13,7 @@ will be added in the db_mutexes table.
 On that row will be applied a "lock for update" (the db engine in use must support it), eusuring the mutual exclusion.
 
 In this way you can avoid to put the lock on the table containing your data (possible bottle neck),
-preserving the read capability for all request that do not need a mutual exclusion.
+preserving the read/write capability for all request that do not need a mutual exclusion.
 
 
 ## Install
@@ -70,7 +70,7 @@ $m->usingDbMutex(function(){
                 can be used if you are making modification on the model
                 (model_updated_at would not make sense if your modifications are applied only to someting else)
                 less reliable but faster, the updated_at field of the model
-                can be readed outside of the "read lock" 
+                can be read outside of the "read lock" 
                 
         if the values do not match the currents, a 412 http error will be returned
         
