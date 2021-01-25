@@ -32,12 +32,12 @@ trait HasDbMutex
 
             if (isset($optLock['counter'])) {
                 if ($optLock['counter'] != $m->counter) {
-                    abort(412, 'record aggiornato da un\'altra finestra/sessione');
+                    abort(412, 'Elemento aggiornato da un\'altra finestra/sessione. Ricaricare la sezione corrente o la pagina.');
                 }
             }
             if (isset($optLock['model_updated_at'])) {
                 if ($optLock['model_updated_at'] != $this->getOriginal(static::UPDATED_AT)) {
-                    abort(412, 'record aggiornato da un\'altra finestra/sessione');
+                    abort(412, 'Elemento aggiornato da un\'altra finestra/sessione. Ricaricare la sezione corrente o la pagina.');
                 }
             }
 
